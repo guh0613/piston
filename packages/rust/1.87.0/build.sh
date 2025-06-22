@@ -14,6 +14,6 @@ case "$ARCH" in
         ;;
 esac
 
-curl -OL "https://static.rust-lang.org/dist/rust-1.68.2-${RUST_ARCH}-unknown-linux-gnu.tar.gz"
-tar xzvf rust-1.68.2-${RUST_ARCH}-unknown-linux-gnu.tar.gz
-rm rust-1.68.2-${RUST_ARCH}-unknown-linux-gnu.tar.gz
+curl -OL "https://static.rust-lang.org/dist/rust-1.87.0-${RUST_ARCH}-unknown-linux-gnu.tar.gz"
+tar xzvf rust-1.87.0-${RUST_ARCH}-unknown-linux-gnu.tar.gz
+rm rust-1.87.0-${RUST_ARCH}-unknown-linux-gnu.tar.gz

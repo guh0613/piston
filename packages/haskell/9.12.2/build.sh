@@ -21,7 +21,7 @@ case "$ARCH" in
         ;;
 esac
 
-curl -L "https://downloads.haskell.org/~ghc/9.0.1/ghc-9.0.1-${GHC_ARCH}-deb10-linux.tar.xz" -o ghc.tar.xz
+curl -L "https://downloads.haskell.org/~ghc/9.12.2/ghc-9.12.2-${GHC_ARCH}-deb10-linux.tar.xz" -o ghc.tar.xz
 tar xf ghc.tar.xz --strip-components=1
 rm ghc.tar.xz
 
