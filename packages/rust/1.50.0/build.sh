@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
+set -e
 
-curl -OL "https://static.rust-lang.org/dist/rust-1.50.0-x86_64-unknown-linux-gnu.tar.gz"
-tar xzvf rust-1.50.0-x86_64-unknown-linux-gnu.tar.gz
-rm rust-1.50.0-x86_64-unknown-linux-gnu.tar.gz
+ARCH=$(uname -m)
+case "$ARCH" in
+    x86_64)
+        RUST_ARCH="x86_64"
+        ;;
+    aarch64|arm64)
+        RUST_ARCH="aarch64"
+        ;;
+    *)
+        RUST_ARCH="$ARCH"
+        ;;
+esac
+
+curl -OL "https://static.rust-lang.org/dist/rust-1.50.0-${RUST_ARCH}-unknown-linux-gnu.tar.gz"
+tar xzvf rust-1.50.0-${RUST_ARCH}-unknown-linux-gnu.tar.gz
+rm rust-1.50.0-${RUST_ARCH}-unknown-linux-gnu.tar.gz
