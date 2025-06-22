@@ -128,6 +128,16 @@ docker-compose up -d api
 cd cli && npm i && cd -
 ```
 
+#### Apple Silicon
+
+The published Docker image only targets `amd64`. If you're using an
+Apple Silicon (arm64) machine, build the API image locally with
+`docker-compose.dev.yaml`:
+
+```sh
+docker compose -f docker-compose.dev.yaml up -d api
+```
+
 The API will now be online with no language runtimes installed. To install runtimes, [use the CLI](#cli).
 
 ## Just Piston (no CLI)
