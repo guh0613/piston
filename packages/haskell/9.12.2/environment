@@ -1,1 +1,2 @@
 export PATH=$PWD/bin:$PATH
+export GHC_ENVIRONMENT=$PWD/ghc-env
