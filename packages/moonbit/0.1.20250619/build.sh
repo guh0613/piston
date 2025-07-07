@@ -6,6 +6,7 @@ ARCH=$(uname -m)
 
 mkdir -p "$PREFIX"
 cd "$PREFIX"
+mkdir -p bin
 
 if [ "$ARCH" = "x86_64" ]; then
     # Download official binary for x86_64
@@ -13,9 +14,17 @@ if [ "$ARCH" = "x86_64" ]; then
     tar xzf moonbit.tar.gz --strip-components=0
     rm moonbit.tar.gz
 else
-    # Build from source for arm64/others
+    # Build from source when no prebuilt binary exists
     MOON_VERSION=$(curl -s https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/moon_version)
     CORE_VERSION=$(curl -s https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/core_version)
+
+    # Install Rust locally if cargo is not available
+    if ! command -v cargo >/dev/null 2>&1; then
+        export CARGO_HOME="$PREFIX/.cargo"
+        export RUSTUP_HOME="$PREFIX/.rustup"
+        curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --no-modify-path
+        export PATH="$CARGO_HOME/bin:$PATH"
+    fi
 
     git clone https://github.com/moonbitlang/moon moon
     pushd moon
@@ -24,7 +33,7 @@ else
     cp target/release/moon ../bin/
     cp target/release/moonrun ../bin/
     popd
-    rm -rf moon
+    rm -rf moon "$CARGO_HOME" "$RUSTUP_HOME"
 
     curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/moonc.js -o bin/moonc
     curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/moonfmt.js -o bin/moonfmt
