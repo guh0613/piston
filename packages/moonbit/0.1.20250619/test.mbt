@@ -1,3 +1,3 @@
-fn main() {
-    print("OK\n")
+fn main {
+    println("OK")
 }
