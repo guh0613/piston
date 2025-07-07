@@ -8,6 +8,9 @@ mkdir -p "$PREFIX"
 cd "$PREFIX"
 mkdir -p bin
 
+# Install Node.js runtime required by moonc
+source ../../node/22.16.0/build.sh
+
 if [ "$ARCH" = "x86_64" ]; then
     # Download official binary for x86_64
     curl -L "https://cli.moonbitlang.com/binaries/latest/moonbit-linux-x86_64.tar.gz" -o moonbit.tar.gz
@@ -38,9 +41,19 @@ else
     curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/moonc.js -o bin/moonc
     curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/moonfmt.js -o bin/moonfmt
     curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/mooninfo.js -o bin/mooninfo
-    curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/moonc.assets -o bin/moonc.assets
-    curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/moonfmt.assets -o bin/moonfmt.assets
-    curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/mooninfo.assets -o bin/mooninfo.assets
+
+    # Fetch wasm assets individually
+    mkdir -p bin/moonc.assets
+    curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/moonc.assets/code-5baad3b67f3ce3039f54.wasm \
+        -o bin/moonc.assets/code-5baad3b67f3ce3039f54.wasm
+
+    mkdir -p bin/moonfmt.assets
+    curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/moonfmt.assets/code-4694e093b6584ea06ea0.wasm \
+        -o bin/moonfmt.assets/code-4694e093b6584ea06ea0.wasm
+
+    mkdir -p bin/mooninfo.assets
+    curl -L https://raw.githubusercontent.com/moonbitlang/moonbit-compiler/main/node/mooninfo.assets/code-6c69331ac5d1d3086498.wasm \
+        -o bin/mooninfo.assets/code-6c69331ac5d1d3086498.wasm
     chmod +x bin/moonc bin/moonfmt bin/mooninfo
 fi
 
