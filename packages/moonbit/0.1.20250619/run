@@ -1,2 +1,6 @@
 #!/usr/bin/env bash
-moon run "$@"
+FILENAME="$1"
+shift
+mv "$FILENAME" "${FILENAME}.mbt"
+moon run "${FILENAME}.mbt" "$@"
+
