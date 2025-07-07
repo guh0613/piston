@@ -1,5 +1,8 @@
 {
     "language": "moonbit",
     "version": "0.1.20250619",
-    "aliases": ["moon"]
+    "aliases": ["moon"],
+    "dependencies": {
+        "node": "22.16.0"
+    }
 }
