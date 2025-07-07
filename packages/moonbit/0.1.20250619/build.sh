@@ -51,6 +51,8 @@ cd lib
 git clone https://github.com/moonbitlang/core core
 cd core
 git checkout "$CORE_COMMIT"
+export MOON_HOME="$PREFIX"
+export PATH="$PREFIX/bin:$PATH"
 "$PREFIX/bin/moon" bundle --target all
 rm -rf .git
 cd "$PREFIX"
