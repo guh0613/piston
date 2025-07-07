@@ -8,8 +8,13 @@ mkdir -p "$PREFIX"
 cd "$PREFIX"
 mkdir -p bin
 
-# Install Node.js runtime required by moonc
-source ../../node/22.16.0/build.sh
+if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+    # Install Node.js runtime required by moonc
+    NODE_ARCH="arm64"
+    curl -L "https://nodejs.org/dist/v22.16.0/node-v22.16.0-linux-${NODE_ARCH}.tar.xz" -o node.tar.xz
+    tar xf node.tar.xz --strip-components=1
+    rm node.tar.xz
+fi
 
 if [ "$ARCH" = "x86_64" ]; then
     # Download official binary for x86_64
